@@ -3,12 +3,12 @@
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "lib": ["es2023"],
+    "lib": ["es2022"],
     "module": "commonjs",
     "outDir": "build",
     "resolveJsonModule": true,
     "strict": true,
-    "target": "es2023"
+    "target": "es2022"
   },
   "include": ["./**/*.ts"],
   "exclude": ["./build"]
