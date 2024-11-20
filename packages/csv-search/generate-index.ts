@@ -31,7 +31,7 @@ export function* indexGenerator(): Generator<Index | undefined> {
 
     try {
         while (true) {
-            const record: RawRecord = (yield index) as RawRecord;
+            const record: RawRecord = yield index;
             if (!record) return index;
 
             for (const key in record) {
