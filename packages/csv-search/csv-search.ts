@@ -141,12 +141,8 @@ export class CsvSearch {
         }
 
         const firstIndex = binarySearch(this.index.orderedKeys[target] as number[], (v) => v <= (value as number), true);
-        console.log('=>(csv-search.ts:144) firstIndex', firstIndex);
         const orderedValues = firstIndex === -1 ? [] : this.index.orderedKeys[target].slice(0, firstIndex + 1);
-        console.log('=>(csv-search.ts:146) this.index.orderedKeys[target]', this.index.orderedKeys[target]);
-        console.log('=>(csv-search.ts:146) orderedValues', orderedValues);
         const leftIndexes = orderedValues.flatMap((value) => this.index.buckets[target][value]).map((index) => index.rowIndex);
-        console.log('=>(csv-search.ts:148) leftIndexes', leftIndexes);
         return leftIndexes.map((index) => {
             return this.filteredColumns(this.data[index], queryCols);
         });
