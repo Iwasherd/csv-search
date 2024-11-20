@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./packages",
     "declaration": true,
     "esModuleInterop": true,
     "lib": ["es2022"],

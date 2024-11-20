@@ -1,14 +1,14 @@
 type RawRecord = Record<string, string | number>;
-type BucketValue = {
+interface BucketValue {
     orderedIndex: number;
     rowIndex: number;
 }
 type Bucket = Record<string | number, BucketValue[]>;
 type Buckets = Record<string, Bucket>;
-type OrderedKeys = Record<string, Array<string | number>>;
+type OrderedKeys = Record<string, (string | number)[]>;
 type ColumnTypes = Record<string, string>;
 
-export type Index = {
+export interface Index {
     buckets: Buckets;
     columnTypes: ColumnTypes;
     orderedKeys: OrderedKeys;
@@ -18,12 +18,12 @@ export type Index = {
  total complexity: O(cols * (cols * log(cols) + cols) * rows) = O(cols^2 * log(cols) * rows)
 */
 export function* indexGenerator(): Generator<Index | undefined> {
-    let buckets: Buckets = {};
+    const buckets: Buckets = {};
     let rowIndex = 0;
-    let columnTypes: ColumnTypes = {};
-    let orderedKeys: OrderedKeys = {};
+    const columnTypes: ColumnTypes = {};
+    const orderedKeys: OrderedKeys = {};
 
-    let index = {
+    const index = {
         buckets,
         columnTypes,
         orderedKeys,
@@ -45,14 +45,14 @@ export function* indexGenerator(): Generator<Index | undefined> {
                 value = value === '0' ? 0 : value;
 
                 switch (typeof value) {
-                    case 'string':
-                        columnTypes[key] = 'string';
-                        break;
-                    case 'number':
-                        columnTypes[key] = 'number';
-                        break;
-                    default:
-                        throw new Error(`Invalid column type: ${typeof value}`);
+                case 'string':
+                    columnTypes[key] = 'string';
+                    break;
+                case 'number':
+                    columnTypes[key] = 'number';
+                    break;
+                default:
+                    throw new Error(`Invalid column type: ${typeof value}`);
                 }
 
                 if (!buckets[key][value]) {
@@ -85,8 +85,8 @@ export function* indexGenerator(): Generator<Index | undefined> {
 
 function updateOrderedIndex(key: string | number, orderedKeys: OrderedKeys, buckets: Buckets) {
     Object.keys(buckets[key]).forEach((value) => {
-        let _value = parseInt(value) || value;
-        buckets[key][_value].forEach((bucketValue, index) => {
+        const _value = parseInt(value) || value;
+        buckets[key][_value].forEach((bucketValue) => {
             bucketValue.orderedIndex = orderedKeys[key].indexOf(_value);
         });
     });

@@ -1,7 +1,7 @@
 import { createObjectCsvWriter } from 'csv-writer';
 import fs from 'node:fs';
 
-type Record = {
+export interface CSVRecord {
     Col1: string;
     Col2: string;
     Col3: string;
@@ -12,7 +12,7 @@ type Record = {
     Col8: string;
     Col9: string;
     Col10: string;
-};
+}
 
 /**
  * Generate a CSV file with 10 rows and 10 columns
@@ -46,7 +46,7 @@ export async function generateCsv(path = 'generated_data.csv') {
         header: header,
     });
 
-    const records: Record[] = [
+    const records: CSVRecord[] = [
         {
             Col1: '12345',
             Col2: 'abc123',

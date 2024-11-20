@@ -6,7 +6,7 @@ export const keywords = {
 export type Project = string[];
 export type Filter = { target: string; condition: string; value: string | number }[];
 
-export type ParsedQuery = {
+export interface ParsedQuery {
     PROJECT: Project;
     FILTER: Filter;
 }

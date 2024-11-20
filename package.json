@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "test": "tsc --noEmit && node --import tsx --test tests/**/*.spec.ts"
+    "lint": "eslint . --fix",
+    "test": "tsc --noEmit && node --import tsx --test tests/**/*.spec.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

@@ -97,18 +97,18 @@ export class CsvSearch {
             }
 
             switch (condition) {
-                case '=':
-                    return this.eqFilter(target, value, queryCols);
-                case '<':
-                    return this.ltFilter(target, Number(value), queryCols);
-                case '<=':
-                    return this.lteFilter(target, Number(value), queryCols);
-                case '>':
-                    return this.gtFilter(target, Number(value), queryCols);
-                case '>=':
-                    return this.gteFilter(target, Number(value), queryCols);
-                default:
-                    throw new Error(`Invalid operator: ${condition}`);
+            case '=':
+                return this.eqFilter(target, value, queryCols);
+            case '<':
+                return this.ltFilter(target, Number(value), queryCols);
+            case '<=':
+                return this.lteFilter(target, Number(value), queryCols);
+            case '>':
+                return this.gtFilter(target, Number(value), queryCols);
+            case '>=':
+                return this.gteFilter(target, Number(value), queryCols);
+            default:
+                throw new Error(`Invalid operator: ${condition}`);
             }
         }
 
@@ -141,12 +141,12 @@ export class CsvSearch {
         }
 
         const firstIndex = binarySearch(this.index.orderedKeys[target] as number[], (v) => v <= (value as number), true);
-        console.log("=>(csv-search.ts:144) firstIndex", firstIndex);
+        console.log('=>(csv-search.ts:144) firstIndex', firstIndex);
         const orderedValues = firstIndex === -1 ? [] : this.index.orderedKeys[target].slice(0, firstIndex + 1);
-        console.log("=>(csv-search.ts:146) this.index.orderedKeys[target]", this.index.orderedKeys[target]);
-        console.log("=>(csv-search.ts:146) orderedValues", orderedValues);
+        console.log('=>(csv-search.ts:146) this.index.orderedKeys[target]', this.index.orderedKeys[target]);
+        console.log('=>(csv-search.ts:146) orderedValues', orderedValues);
         const leftIndexes = orderedValues.flatMap((value) => this.index.buckets[target][value]).map((index) => index.rowIndex);
-        console.log("=>(csv-search.ts:148) leftIndexes", leftIndexes);
+        console.log('=>(csv-search.ts:148) leftIndexes', leftIndexes);
         return leftIndexes.map((index) => {
             return this.filteredColumns(this.data[index], queryCols);
         });
@@ -186,12 +186,12 @@ export class CsvSearch {
 
     private getOutput(): (data: Record<string, string>[], keys: string[]) => Data {
         switch (this.outputFormat) {
-            case outputFormats.json:
-                return jsonOutput;
-            case outputFormats.table:
-                return tableOutput;
-            default:
-                throw new Error(`Invalid output format: ${this.outputFormat}`);
+        case outputFormats.json:
+            return jsonOutput;
+        case outputFormats.table:
+            return tableOutput;
+        default:
+            throw new Error(`Invalid output format: ${this.outputFormat}`);
         }
     }
 }

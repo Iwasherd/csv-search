@@ -1,4 +1,4 @@
-export function binarySearch(arr: number[], condition: (value: number) => boolean, fromEnd: boolean = false): number {
+export function binarySearch(arr: number[], condition: (value: number) => boolean, fromEnd = false): number {
     let left = 0;
     let right = arr.length - 1;
     let result = -1;

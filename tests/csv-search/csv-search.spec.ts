@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import { describe, it, before, after } from 'node:test';
-import { generateCsv } from '../utils/generate-csv';
+import { generateCsv, CSVRecord } from '../utils/generate-csv';
 import { CsvSearch, outputFormats } from '../../packages/csv-search/csv-search';
 
 const csvFileName = 'test.csv';
 
 describe('CSV Search', () => {
     let cleanupCsv: () => void;
-    let csvSnap: Record<string, string>[];
+    let csvSnap: CSVRecord[];
     before(async () => {
         const { cleanup, jsObjectSnapshot } = await generateCsv(csvFileName);
         cleanupCsv = cleanup;
